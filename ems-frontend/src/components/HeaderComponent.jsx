@@ -1,12 +1,12 @@
-import React from "react";
-
+import React from 'react';
+// import React, { component} from 'react';
 const HeaderComponent= ()=>
 {
     return (
         <div>
             <header>
             <nav className="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="https://www.javaguides.net">Employee Management System</a>
+            <a className="navbar-brand" href="https://www.javaguides.net">Employee Management System</a>
             </nav>
             </header>
         </div>
