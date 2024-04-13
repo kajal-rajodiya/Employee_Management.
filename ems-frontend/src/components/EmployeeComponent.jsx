@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createEmployee, getEmployee } from '../services/EmployeeService';
+import { createEmployee, getEmployee, updateEmployee } from '../services/EmployeeService';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const EmployeeComponent = () => {
@@ -28,16 +28,29 @@ const EmployeeComponent = () => {
         }
     },[id]);
 
-    const saveEmployee = (e) => {
+    const saveOrUpdateEmployee = (e) => {
         e.preventDefault();
+
         if (validateForm()) {
             const employee = { firstName, lastName, email };
             console.log(employee);
+        if(id){
+            updateEmployee(id,employee).then((response)=>{
+                console.log(response.data);
+                navigator('/employees');
 
+            }).catch(error =>{
+                console.log(error);
+            })
+        }else{
             createEmployee(employee).then((response) => {
                 console.log(response.data);
                 navigator('/employees');
-            });
+            }).catch(error =>{
+                console.log(error);
+            })
+         }
+         
         }
     };
 
@@ -119,7 +132,7 @@ const EmployeeComponent = () => {
                                 {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                             </div>
 
-                            <button className="btn btn-success" onClick={saveEmployee}>Submit</button>
+                            <button className="btn btn-success" onClick={saveOrUpdateEmployee}>Submit</button>
                         </form>
                     </div>
                 </div>
